@@ -22,4 +22,5 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "rake"
 
   spec.add_dependency "fog"
+  spec.add_dependency "net-ssh", "2.5.2"
 end
