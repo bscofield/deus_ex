@@ -8,8 +8,8 @@ Gem::Specification.new do |spec|
   spec.version       = DeusEx::VERSION
   spec.authors       = ["Ben Scofield"]
   spec.email         = ["ben.scofield@livingsocial.com"]
-  spec.description   = %q{TODO: Write a gem description}
-  spec.summary       = %q{TODO: Write a gem summary}
+  spec.description   = %q{Easily manage just-in-time EC2 git repos}
+  spec.summary       = %q{Easily manage just-in-time EC2 git repos}
   spec.homepage      = ""
   spec.license       = "MIT"
 
@@ -20,4 +20,6 @@ Gem::Specification.new do |spec|
 
   spec.add_development_dependency "bundler", "~> 1.3"
   spec.add_development_dependency "rake"
+
+  spec.add_dependency "fog"
 end
