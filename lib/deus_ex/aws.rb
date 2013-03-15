@@ -48,7 +48,7 @@ module DeusEx
       ])
 
       log "git repo initialized"
-      log git_remote
+      log "git remote is #{git_remote}"
     end
 
     def setup_git_remote
