@@ -9,6 +9,9 @@ module DeusEx
       aws.setup_server
       aws.setup_repository
       aws.clean_up
+    rescue Exception => e
+      log "error: #{e.inspect}"
+      aws.clean_up
     end
 
     def setup_connection
@@ -24,7 +27,6 @@ module DeusEx
         :image_id => 'ami-3679e75f',
         :username => REMOTE_USER
       })
-      @server.wait_for { ready? }
       log "server created"
     end
 
