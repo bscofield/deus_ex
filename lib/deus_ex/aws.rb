@@ -44,8 +44,7 @@ module DeusEx
       log "initializing git repo"
       @server.ssh([
         "mkdir #{DEPLOY_PROJECT}.git",
-        "cd #{DEPLOY_PROJECT}.git",
-        'git init --bare'
+        "cd #{DEPLOY_PROJECT}.git && git init --bare"
       ])
 
       log "git repo initialized"
@@ -56,9 +55,10 @@ module DeusEx
       if system('git rev-parse')
         log "adding git remote"
         system "git remote add #{GIT_REMOTE_NAME} #{git_remote}"
+        system "git config --global remote.#{GIT_REMOTE_NAME}.receivepack \"git receive-pack\""
 
         log "pushing to remote #{git_remote}"
-        system "git push deus-ex-deploy master"
+        system "git push #{GIT_REMOTE_NAME} master"
 
         log "removing git remote"
         system "git remote rm #{GIT_REMOTE_NAME}"
