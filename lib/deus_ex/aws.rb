@@ -1,3 +1,5 @@
+require 'logger'
+
 module DeusEx
   class AWS
     IMAGE_ID       = 'ami-3679e75f'
@@ -61,8 +63,8 @@ module DeusEx
       "git remote add deus-ex #{REMOTE_USER}@#{@server.dns_name}:#{DEPLOY_PROJECT}.git"
     end
 
-    def log(message, logger = $stdout)
-      logger.puts ["[DEUS EX]", message].join ' '
+    def log(message, logger = Logger.new($stdout))
+      logger.info ["[DEUS EX]", message].join ' '
     end
   end
 end
