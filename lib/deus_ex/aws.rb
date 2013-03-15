@@ -1,7 +1,7 @@
 module DeusEx
   class AWS
     DEPLOY_PROJECT = 'deus_ex_project'
-    REMOTE_USER    = 'deus_ex'
+    REMOTE_USER    = 'ubuntu'
 
     def self.setup
       aws = new
