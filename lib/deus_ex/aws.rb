@@ -51,8 +51,8 @@ module DeusEx
       "git remote add deus-ex #{REMOTE_USER}@#{@server.dns_name}:#{DEPLOY_PROJECT}.git"
     end
 
-    def log(message)
-      puts ["[DEUS EX]", message].join ' '
+    def log(message, logger = $stdout)
+      logger.puts ["[DEUS EX]", message].join ' '
     end
   end
 end
