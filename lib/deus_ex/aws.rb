@@ -9,7 +9,6 @@ module DeusEx
       aws.setup_connection
       aws.setup_server
       aws.setup_repository
-      aws.clean_up
     rescue Exception => e
       log "error: #{e.inspect}"
       aws.clean_up
