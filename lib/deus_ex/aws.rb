@@ -1,5 +1,6 @@
 module DeusEx
   class AWS
+    IMAGE_ID       = 'ami-3679e75f'
     DEPLOY_PROJECT = 'deus_ex_project'
     REMOTE_USER    = 'ubuntu'
 
@@ -14,6 +15,12 @@ module DeusEx
       aws.clean_up
     end
 
+    def self.cleanup
+      aws = new
+      aws.setup_connection
+      aws.clean_up
+    end
+
     def setup_connection
       @connection = Fog::Compute.new({
         :provider => 'AWS'
@@ -24,7 +31,7 @@ module DeusEx
     def setup_server
       log "creating server"
       @server = @connection.servers.bootstrap({
-        :image_id => 'ami-3679e75f',
+        :image_id => IMAGE_ID,
         :username => REMOTE_USER
       })
       log "server created"
@@ -43,7 +50,11 @@ module DeusEx
     end
 
     def clean_up
-      @server.destroy
+      if @server
+        @server.destroy
+      else
+        @connection.servers.select {|s| s.image_id == IMAGE_ID}.map(&:destroy)
+      end
       log "server destroyed"
     end
 
