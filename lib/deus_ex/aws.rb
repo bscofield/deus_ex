@@ -2,15 +2,17 @@ require 'logger'
 
 module DeusEx
   class AWS
-    IMAGE_ID       = 'ami-3679e75f'
-    DEPLOY_PROJECT = 'deus_ex_project'
-    REMOTE_USER    = 'ubuntu'
+    IMAGE_ID        = 'ami-3679e75f'
+    DEPLOY_PROJECT  = 'deus_ex_project'
+    REMOTE_USER     = 'ubuntu'
+    GIT_REMOTE_NAME = 'deus-ex'
 
     def self.setup
       aws = new
       aws.setup_connection
       aws.setup_server
       aws.setup_repository
+      aws.setup_git_remote
     rescue Exception => e
       log "error: #{e.inspect}"
       aws.clean_up
@@ -50,6 +52,21 @@ module DeusEx
       log git_remote
     end
 
+    def setup_git_remote
+      if system('git rev-parse')
+        log "adding git remote"
+        system "git remote add #{GIT_REMOTE_NAME} #{git_remote}"
+
+        log "pushing to remote #{git_remote}"
+        system "git push deus-ex-deploy master"
+
+        log "removing git remote"
+        system "git remote rm #{GIT_REMOTE_NAME}"
+      else
+        warn "not in a git repo"
+      end
+    end
+
     def clean_up
       if @server
         @server.destroy
@@ -60,11 +77,15 @@ module DeusEx
     end
 
     def git_remote
-      "git remote add deus-ex #{REMOTE_USER}@#{@server.dns_name}:#{DEPLOY_PROJECT}.git"
+      "#{REMOTE_USER}@#{@server.dns_name}:#{DEPLOY_PROJECT}.git"
     end
 
-    def log(message, logger = Logger.new($stdout))
-      logger.info ["[DEUS EX]", message].join ' '
+    def log(message, level = :info, logger = Logger.new($stdout))
+      logger.send(level, ["[DEUS EX]", message].join(' '))
+    end
+
+    def warn(message)
+      log message, :warn
     end
   end
 end
