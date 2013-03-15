@@ -55,7 +55,6 @@ module DeusEx
       if system('git rev-parse')
         log "adding git remote"
         system "git remote add #{GIT_REMOTE_NAME} #{git_remote}"
-        system "git config --global remote.#{GIT_REMOTE_NAME}.receivepack \"git receive-pack\""
 
         log "pushing to remote #{git_remote}"
         system "git push #{GIT_REMOTE_NAME} master"
