@@ -1,6 +1,6 @@
 # DeusEx
 
-GitHub DDOSings getting you down and stopping your deploys? GIT IS DISTRIBUTED, SUCKA. The deus-ex gem allows you to easily
+GitHub DDOSings getting you down and stopping your deploys? GIT IS DISTRIBUTED, SUCKA. The deus_ex gem allows you to easily
 fire up an AWS instance, push your repo to it, and use that for your deploy until GitHub is back on its feet.
 
 ## Installation
