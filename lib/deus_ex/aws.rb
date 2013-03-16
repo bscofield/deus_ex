@@ -14,7 +14,7 @@ module DeusEx
       aws.setup_repository
       aws.setup_git_remote
     rescue Exception => e
-      log "error: #{e.inspect}"
+      aws.log "error: #{e.inspect}"
       aws.clean_up
     end
 
@@ -53,10 +53,10 @@ module DeusEx
 
     def setup_git_remote
       if system('git rev-parse')
-        log "adding git remote"
+        log "adding git remote - #{git_remote}"
         system "git remote add #{GIT_REMOTE_NAME} #{git_remote}"
 
-        log "pushing to remote #{git_remote}"
+        log "pushing to remote"
         system "git push #{GIT_REMOTE_NAME} master"
 
         log "removing git remote"
@@ -80,7 +80,11 @@ module DeusEx
     end
 
     def log(message, level = :info, logger = Logger.new($stdout))
-      logger.send(level, ["[DEUS EX]", message].join(' '))
+      logger.formatter = proc do |severity, datetime, progname, msg|
+        "[DEUS EX] #{msg}\n"
+      end
+
+      logger.send(level, message)
     end
 
     def warn(message)

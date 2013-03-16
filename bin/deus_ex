@@ -1,6 +1,8 @@
 #!/usr/bin/env ruby
 require File.expand_path(File.join(File.dirname(__FILE__), '..', 'lib', 'deus_ex'))
 
+Fog.mock!
+
 if ARGV.length > 0 && ARGV[0] == 'cleanup'
   DeusEx.cleanup
 else
