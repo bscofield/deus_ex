@@ -22,8 +22,8 @@ The gem uses [fog](http://fog.io/) to manage the connection to AWS, so you'll ne
     default:
       aws_access_key_id: my_access_key
       aws_secret_access_key: my_secret_access_key
-      public_key_path: ~/.ssh/fog_rsa.pub
-      private_key_path: ~/.ssh/fog_rsa
+      public_key_path: ~/.ssh/id_rsa.pub
+      private_key_path: ~/.ssh/id_rsa
 
 ## Usage
 
