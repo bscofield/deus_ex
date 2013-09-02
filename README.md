@@ -17,6 +17,14 @@ Or install it yourself as:
 
     $ gem install deus_ex
 
+The gem uses [fog](http://fog.io/) to manage the connection to AWS, so you'll need to put your AWS credentials into `~/.fog`, like so:
+
+    default:
+      aws_access_key_id: my_access_key
+      aws_secret_access_key: my_secret_access_key
+      public_key_path: ~/.ssh/fog_rsa.pub
+      private_key_path: ~/.ssh/fog_rsa
+
 ## Usage
 
 Once the gem's bundled, run the following to create your temporary instance:

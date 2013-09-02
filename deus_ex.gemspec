@@ -7,7 +7,7 @@ Gem::Specification.new do |spec|
   spec.name          = "deus_ex"
   spec.version       = DeusEx::VERSION
   spec.authors       = ["Ben Scofield"]
-  spec.email         = ["ben.scofield@livingsocial.com"]
+  spec.email         = ["bscofield@gmail.com"]
   spec.description   = %q{Easily manage just-in-time EC2 git repos}
   spec.summary       = %q{Easily manage just-in-time EC2 git repos}
   spec.homepage      = ""
@@ -21,6 +21,6 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "bundler", "~> 1.3"
   spec.add_development_dependency "rake"
 
-  spec.add_dependency "fog"
-  spec.add_dependency "net-ssh", "2.5.2"
+  spec.add_dependency "fog", ">=1.15.0"
+  spec.add_dependency "net-ssh"
 end

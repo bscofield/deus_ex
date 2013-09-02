@@ -16,6 +16,7 @@ module DeusEx
     rescue Exception => e
       aws.log "error: #{e.inspect}"
       aws.clean_up
+      raise e
     end
 
     def self.cleanup
@@ -32,10 +33,10 @@ module DeusEx
     end
 
     def setup_server
-      log "creating server"
+      log "creating server (this may take a couple of minutes)"
       @server = @connection.servers.bootstrap({
-        :image_id => IMAGE_ID,
-        :username => REMOTE_USER
+        :image_id  => IMAGE_ID,
+        :username  => REMOTE_USER
       })
       log "server created"
     end
