@@ -13,6 +13,7 @@ module DeusEx
       aws.setup_server
       aws.setup_repository
       aws.setup_git_remote
+      aws.announce_deploy_remote
     rescue Exception => e
       aws.log "error: #{e.inspect}"
       aws.clean_up
@@ -49,12 +50,11 @@ module DeusEx
       ])
 
       log "git repo initialized"
-      log "git remote is #{git_remote}"
     end
 
     def setup_git_remote
       if system('git rev-parse')
-        log "adding git remote - #{git_remote}"
+        log "adding git remote"
         system "git remote add #{GIT_REMOTE_NAME} #{git_remote}"
 
         log "pushing to remote"
@@ -65,6 +65,10 @@ module DeusEx
       else
         warn "not in a git repo"
       end
+    end
+
+    def announce_deploy_remote
+      log "\nyou can now deploy from #{git_remote}\n"
     end
 
     def clean_up
