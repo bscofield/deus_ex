@@ -31,10 +31,13 @@ Once the gem's bundled, run the following to create your temporary instance:
 
     $ bundle exec deus_ex
 
-The gem will tell you what it's doing, and will give you the git URL for your new deploy-fromable repo. Use that for your deploy,
-then tear down your instance with
+The gem will tell you what it's doing, and will give you the git URL for your new deploy-fromable repo. Use that for your deploy, then tear down your instance with
 
     $ bundle exec deus_ex cleanup
+
+## Warning!
+
+This may not work if your app has dependencies on GitHub beyond the deployment repository -- if you're using git URLs for gems, for instance.
 
 ## Contributing
 
