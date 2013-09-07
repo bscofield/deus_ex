@@ -20,9 +20,10 @@ module DeusEx
     end
 
     def self.cleanup
-      aws = new
-      aws.setup_connection
-      aws.clean_up
+      p Fog::Compute.new
+      # aws = new
+      # aws.setup_connection
+      # aws.clean_up
     end
 
     def setup_connection
@@ -57,7 +58,7 @@ module DeusEx
         system "git remote add #{GIT_REMOTE_NAME} #{git_remote}"
 
         log "pushing to remote"
-        system "git push #{GIT_REMOTE_NAME} master"
+        system "ssh-agent bash -c 'ssh-add #{ssh_key}; git push #{GIT_REMOTE_NAME} master'"
 
         log "removing local git remote"
         system "git remote rm #{GIT_REMOTE_NAME}"
@@ -76,6 +77,10 @@ module DeusEx
         @connection.servers.select {|s| s.image_id == IMAGE_ID}.map(&:destroy)
       end
       log "server destroyed"
+    end
+
+    def ssh_key
+      Fog.credentials[:private_key_path]
     end
 
     def git_remote
