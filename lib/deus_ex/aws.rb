@@ -20,10 +20,9 @@ module DeusEx
     end
 
     def self.cleanup
-      p Fog::Compute.new
-      # aws = new
-      # aws.setup_connection
-      # aws.clean_up
+      aws = new
+      aws.setup_connection
+      aws.clean_up
     end
 
     def setup_connection
