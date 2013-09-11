@@ -1,8 +1,8 @@
 #!/usr/bin/env ruby
 require File.expand_path(File.join(File.dirname(__FILE__), '..', 'lib', 'deus_ex'))
 
-if ARGV.length > 0 && ARGV[0] == 'cleanup'
-  DeusEx.cleanup
+if ARGV.length > 0
+  DeusEx.send(ARGV[0].to_s)
 else
   DeusEx.setup
 end

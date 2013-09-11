@@ -37,6 +37,20 @@ module DeusEx
       end
     end
 
+    def self.status
+      aws = new
+      aws.setup_connection
+      aws.status
+    rescue Exception => e
+      if e.is_a?(SystemExit)
+        aws.log "Exiting"
+      else
+        aws.log "error: #{e.inspect}"
+        aws.clean_up
+        raise e
+      end
+    end
+
     def setup_connection
       check_for_credentials
 
@@ -92,9 +106,16 @@ module DeusEx
     end
 
     def clean_up
-      servers = @server ? [@server] : @connection.servers.select { |s| s.image_id == IMAGE_ID }
       destroyed = servers.map(&:destroy).count
       log "#{destroyed} server#{'s' if destroyed != 1} destroyed"
+    end
+
+    def status
+      log "#{servers.count} server#{'s' if servers.count != 1} found"
+    end
+
+    def servers
+      @server ? [@server] : @connection.servers.select { |s| s.image_id == IMAGE_ID }
     end
 
     def ssh_key

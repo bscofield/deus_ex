@@ -35,6 +35,10 @@ The gem will tell you what it's doing, and will give you the git URL for your ne
 
     $ bundle exec deus_ex cleanup
 
+You can check to see if you have any active deus_ex instances running, as well:
+
+    $ bundle exec deus_ex status
+
 ## Warning!
 
 This may not work if your app has dependencies on GitHub beyond the deployment repository -- if you're using git URLs for gems, for instance.

@@ -6,8 +6,12 @@ module DeusEx
   def self.setup
     DeusEx::AWS.setup
   end
-  
+
   def self.cleanup
     DeusEx::AWS.cleanup
+  end
+
+  def self.status
+    DeusEx::AWS.status
   end
 end
