@@ -14,22 +14,44 @@ module DeusEx
       aws.setup_repository
       aws.setup_git_remote
     rescue Exception => e
-      aws.log "error: #{e.inspect}"
-      aws.clean_up
-      raise e
+      if e.is_a?(SystemExit)
+        aws.log "Exiting"
+      else
+        aws.log "error: #{e.inspect}"
+        aws.clean_up
+        raise e
+      end
     end
 
     def self.cleanup
       aws = new
       aws.setup_connection
       aws.clean_up
+    rescue Exception => e
+      if e.is_a?(SystemExit)
+        aws.log "Exiting"
+      else
+        aws.log "error: #{e.inspect}"
+        aws.clean_up
+        raise e
+      end
     end
 
     def setup_connection
+      check_for_credentials
+
       @connection = Fog::Compute.new({
         :provider => 'AWS'
       })
       log "connection established"
+    end
+
+    def check_for_credentials
+      required_keys = %i(aws_access_key_id aws_secret_access_key private_key_path public_key_path)
+      if required_keys.any? { |key| Fog.credentials[key].nil? }
+        log "Please ensure that your AWS credentials are stored in ~/.fog; see the README for more information.", :fatal
+        abort
+      end
     end
 
     def setup_server
@@ -70,12 +92,9 @@ module DeusEx
     end
 
     def clean_up
-      if @server
-        @server.destroy
-      else
-        @connection.servers.select {|s| s.image_id == IMAGE_ID}.map(&:destroy)
-      end
-      log "server destroyed"
+      servers = @server ? [@server] : @connection.servers.select { |s| s.image_id == IMAGE_ID }
+      destroyed = servers.map(&:destroy).count
+      log "#{destroyed} server#{'s' if destroyed != 1} destroyed"
     end
 
     def ssh_key
