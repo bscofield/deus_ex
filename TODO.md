@@ -1,5 +1,4 @@
 ### GENERAL
-* Detect missing credentials
 * Specify SSH identity to use in the git push
 
 ### CAPISTRANO

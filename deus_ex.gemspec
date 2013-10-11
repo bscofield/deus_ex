@@ -6,10 +6,10 @@ require 'deus_ex/version'
 Gem::Specification.new do |spec|
   spec.name          = "deus_ex"
   spec.version       = DeusEx::VERSION
-  spec.authors       = ["Ben Scofield"]
+  spec.authors       = ["Ben Scofield", "Terry Howe"]
   spec.email         = ["bscofield@gmail.com"]
-  spec.description   = %q{Easily manage just-in-time EC2 git repos}
-  spec.summary       = %q{Easily manage just-in-time EC2 git repos}
+  spec.description   = %q{Easily manage just-in-time git repos}
+  spec.summary       = %q{Easily manage just-in-time git repos}
   spec.homepage      = ""
   spec.license       = "MIT"
 

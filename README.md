@@ -1,7 +1,7 @@
 # DeusEx
 
 GitHub DDOSings getting you down and stopping your deploys? GIT IS DISTRIBUTED, SUCKA. The deus_ex gem allows you to easily
-fire up an AWS instance, push your repo to it, and use that for your deploy until GitHub is back on its feet.
+fire up cloud instance, push your repo to it, and use that for your deploy until GitHub is back on its feet.
 
 ## Installation
 
@@ -17,13 +17,27 @@ Or install it yourself as:
 
     $ gem install deus_ex
 
-The gem uses [fog](http://fog.io/) to manage the connection to AWS, so you'll need to put your AWS credentials into `~/.fog`, like so:
+The gem uses [fog](http://fog.io/) to manage the connection to various cloud providers, so you'll need to put your credentials into `.machina.yml`, like so:
 
-    default:
-      aws_access_key_id: my_access_key
-      aws_secret_access_key: my_secret_access_key
-      public_key_path: ~/.ssh/id_rsa.pub
-      private_key_path: ~/.ssh/id_rsa
+---
+:authentication:
+  :provider: 'openstack'
+  :openstack_username: '***********'
+  :openstack_api_key: '*************'
+  :openstack_auth_url: 'https://cloud.example.com:35357/v2.0/tokens'
+  :openstack_tenant: 'tenant_name'
+  :openstack_region: 'region-b.geo-1'
+:server_create:
+  :flavor_ref: '103'
+  :image_ref: '8c096c29-a666-4b82-99c4-c77dc70cfb40'
+  :key_name: 'bover'
+  :nics: [ 'net_id': '76abe0b1-581a-4698-b200-a2e890f4eb8d' ]
+:floating_ip_create:
+  :floating_network_id: '7da74520-9d5e-427b-a508-213c84e69616'
+:public_key_path: /home/terry/.ssh/bover.pub
+:private_key_path: /home/terry/.ssh/bover.pem
+:username: ubuntu
+
 
 ## Usage
 
