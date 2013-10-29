@@ -80,6 +80,7 @@ module DeusEx
       else
         create_floating_ip
       end
+      log "server ip " + @ip
     end
 
     def create_floating_ip
